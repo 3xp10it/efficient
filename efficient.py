@@ -86,9 +86,9 @@ while 1:
             choose = input("\n输入j随机奖励,输入c随机惩罚,输入b返回到上一层[default b]\n>")
             if choose in ['j', 'J']:
                jiangliIndex=random.randint(0,len(jiangli)-1)
-               output.good_output.good_print(jiangli[jiangliIndex])
+               output.good_print(jiangli[jiangliIndex])
             elif choose in ['c','C']:
                 chengfaIndex=random.randint(0,len(chengfa)-1)
-                output.good_output.good_print(chengfa[chengfaIndex])
+                output.good_print(chengfa[chengfaIndex])
             else:
                 break
