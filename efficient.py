@@ -1,3 +1,22 @@
+#############################################################
+###  _____           _  ___  _ _   
+### |___ /_  ___ __ / |/ _ \(_) |_ 
+###   |_ \ \/ / '_ \| | | | | | __|
+###  ___) >  <| |_) | | |_| | | |_ 
+### |____/_/\_\ .__/|_|\___/|_|\__|
+###           |_|                  
+###                                                          
+### name: efficient.py
+### function: efficient study
+### date: 2017-07-19
+### author: quanyechavshuo
+### blog: http://3xp10it.cc
+#############################################################
+import time
+from exp10it import figlet2file
+figlet2file("3xp10it",0,True)
+time.sleep(1)
+
 import os
 import random
 import re
@@ -7,63 +26,64 @@ from exp10it import update_config_file_key_value
 from exp10it import get_key_value_from_config_file
 from exp10it import config_file_has_key_value
 
+
 def voiceTips():
     import time
     import re
-    nowYear=time.strftime("%y")
+    nowYear = time.strftime("%y")
     nowMonth = time.strftime("%m")
     nowDate = time.strftime("%d")
-    todayDate=nowYear+nowMonth+nowDate
+    todayDate = nowYear + nowMonth + nowDate
 
-    saidNowStartList=[]
-    saidNowEndList=[]
+    saidNowStartList = []
+    saidNowEndList = []
     while 1:
         time.sleep(1)
         if os.path.exists("plan.ini"):
-            with open("plan.ini","r+") as f:
-                fileContent=f.read()
-            matchToday=re.search(r"\[%s\]\n+([\s\S]+)(\[.+\])?" % todayDate,fileContent,re.I)
+            with open("plan.ini", "r+") as f:
+                fileContent = f.read()
+            matchToday = re.search(r"\[%s\]\n+([\s\S]+)(\[.+\])?" % todayDate, fileContent, re.I)
             if matchToday:
-                tmpContent=matchToday.group(1)
-                matchTime=re.findall(r"(\d{1,2}'\d{1,2})\-(\d{1,2}'\d{1,2})\s*=\s*(.*)",tmpContent,re.I)
+                tmpContent = matchToday.group(1)
+                matchTime = re.findall(r"(\d{1,2}'\d{1,2})\-(\d{1,2}'\d{1,2})\s*=\s*(.*)", tmpContent, re.I)
                 if matchTime:
                     import datetime
-                    #pdb.set_trace()
+                    # pdb.set_trace()
 
-                    now=datetime.datetime.now()
-                    now=now.strftime('%H:%M').replace(":","'")
+                    now = datetime.datetime.now()
+                    now = now.strftime('%H:%M').replace(":", "'")
                     for each in matchTime:
-                        startTime=each[0]
-                        endTime=each[1]
-                        if len(each[0].split("'")[0])==1:
-                            startTime='0'+each[0]
-                        if len(each[1].split("'")[0])==1:
-                            endTime='0'+each[1]
-                        if startTime==now:
+                        startTime = each[0]
+                        endTime = each[1]
+                        if len(each[0].split("'")[0]) == 1:
+                            startTime = '0' + each[0]
+                        if len(each[1].split("'")[0]) == 1:
+                            endTime = '0' + each[1]
+                        if startTime == now:
                             if now not in saidNowStartList:
                                 os.system("say 注意,现在开始进行%s" % each[2])
                                 saidNowStartList.append(now)
 
-
-                            #time.sleep(60)
-                        if endTime==now:
+                            # time.sleep(60)
+                        if endTime == now:
                             if now not in saidNowEndList:
                                 os.system("say 注意,现在结束%s" % each[2])
                                 saidNowEndList.append(now)
 
 
-output=CLIOutput()
-jiangli = ["今日dj", "本周2次dj", "可以买一个礼物给家人", "可以买一本好书给自己", "可以获得一次抵消惩罚的机会", "明天完成main后可以自由娱乐或其他安排","周末可以自由安排","增加可购买想要的东西的基金200元[到2000元可购买机械键盘]"]
-chengfa = ["周末Ndj", "周末全部时间用来学习,禁止娱乐", "周末全部时间用来练习五笔", "周末全部时间用来背单词","周末背2000个单词后才可以休息, 否则不能进行任意娱乐","减少基金200元"]
-jiangliIndex=random.randint(0,len(jiangli)-1)
-chengfaIndex=random.randint(0,len(chengfa)-1)
+output = CLIOutput()
+jiangli = ["今日dj", "本周2次dj", "可以买一个礼物给家人", "可以买一本好书给自己", "可以获得一次抵消惩罚的机会",
+           "明天完成main后可以自由娱乐或其他安排", "周末可以自由安排", "增加可购买想要的东西的基金200元[到2000元可购买机械键盘]"]
+chengfa = ["周末Ndj", "周末全部时间用来学习,禁止娱乐", "周末全部时间用来练习五笔", "周末全部时间用来背单词", "周末背2000个单词后才可以休息, 否则不能进行任意娱乐", "减少基金200元"]
+jiangliIndex = random.randint(0, len(jiangli) - 1)
+chengfaIndex = random.randint(0, len(chengfa) - 1)
 
 while 1:
     import time
-    nowYear=time.strftime("%y")
+    nowYear = time.strftime("%y")
     nowMonth = time.strftime("%m")
     nowDate = time.strftime("%d")
-    todayDate=nowYear+nowMonth+nowDate
+    todayDate = nowYear + nowMonth + nowDate
 
     choose = input('''请输入你遇到的问题:
     1.效率不高
@@ -134,21 +154,21 @@ while 1:
             pass
         if choose == '4':
             import os
-            with open("plan.ini","r+") as f:
-                fileContent=f.read()
-            if not config_file_has_key_value("plan.ini",todayDate,"plan"):
-                #没有plan的值
-                plan=input("请输入今天的目标\n>")
-                update_config_file_key_value("plan.ini",todayDate,"plan",plan)
-            if not config_file_has_key_value("plan.ini",todayDate,"main"):
-                main=input("请输入今天的主要目标\n>")
-                update_config_file_key_value("plan.ini",todayDate,"main",main)
-            if not config_file_has_key_value("plan.ini",todayDate,"未完成惩罚") and not config_file_has_key_value("plan.ini",todayDate,"完成奖励"):
-                if int(nowDate)%2==0:
-                    choose=("今日为惩罚日,你想自己选择惩罚方式还是由我随机帮你选一个? y|Y for your choose,n|N for random,default [n]")
-                    if choose in ['y','Y']:
+            with open("plan.ini", "r+") as f:
+                fileContent = f.read()
+            if not config_file_has_key_value("plan.ini", todayDate, "plan"):
+                # 没有plan的值
+                plan = input("请输入今天的目标\n>")
+                update_config_file_key_value("plan.ini", todayDate, "plan", plan)
+            if not config_file_has_key_value("plan.ini", todayDate, "main"):
+                main = input("请输入今天的主要目标\n>")
+                update_config_file_key_value("plan.ini", todayDate, "main", main)
+            if not config_file_has_key_value("plan.ini", todayDate, "未完成惩罚") and not config_file_has_key_value("plan.ini", todayDate, "完成奖励"):
+                if int(nowDate) % 2 == 0:
+                    choose = ("今日为惩罚日,你想自己选择惩罚方式还是由我随机帮你选一个? y|Y for your choose,n|N for random,default [n]")
+                    if choose in ['y', 'Y']:
                         while 1:
-                            choose=input('''
+                            choose = input('''
     惩罚方法:
         1.周末Ndj
         2.周末全部时间用来学习,禁止娱乐
@@ -156,16 +176,16 @@ while 1:
         4.周末全部时间用来背单词
         5.周末背2000个单词后才可以休息,否则不能进行任意娱乐
         6.减少基金200元''')
-                            if choose not in ["1","2","3","4","5","6"]:
+                            if choose not in ["1", "2", "3", "4", "5", "6"]:
                                 continue
                             else:
                                 break
-                        update_config_file_key_value("plan.ini",todayDate,"未完成惩罚",chengfa[chengfaIndex])
+                        update_config_file_key_value("plan.ini", todayDate, "未完成惩罚", chengfa[chengfaIndex])
                 else:
-                    choose=("今日为奖励日,你想自己选择奖励方式还是由我随机帮你选一个? y|Y for your choose,n|N for random,default [n]")
-                    if choose in ['y','Y']:
+                    choose = ("今日为奖励日,你想自己选择奖励方式还是由我随机帮你选一个? y|Y for your choose,n|N for random,default [n]")
+                    if choose in ['y', 'Y']:
                         while 1:
-                            choose=input('''
+                            choose = input('''
         奖励方法:
         1.今日dj
         2.本周2次dj
@@ -177,46 +197,43 @@ while 1:
         8.增加可购买想要的东西的基金200元[到2000元可购买机械键盘]
         (默认不奖励不惩罚状态应该是副业状态,工资太少,要赚钱,要保持hungery to gain money,knowledge,but not movie anymore,that's boring and meaningless)
         ''')
-                            if choose not in ["1","2","3","4","5","6","7","8"]:
+                            if choose not in ["1", "2", "3", "4", "5", "6", "7", "8"]:
                                 continue
                             else:
                                 break
-                        update_config_file_key_value("plan.ini",todayDate,"完成奖励",jiangli[jiangliIndex])
+                        update_config_file_key_value("plan.ini", todayDate, "完成奖励", jiangli[jiangliIndex])
 
-
-            with open("plan.ini","r+") as f:
-                fileContent=f.read()
-            tmpContent=re.search(r"\[%s\]\n+([\s\S]+)(\[.+\])?" % todayDate,fileContent,re.I).group(1)
-            if not re.search(r"\d{1,2}'\d{1,2}\-\d{1,2}'\d{1,2}\s*=",tmpContent,re.I):
+            with open("plan.ini", "r+") as f:
+                fileContent = f.read()
+            tmpContent = re.search(r"\[%s\]\n+([\s\S]+)(\[.+\])?" % todayDate, fileContent, re.I).group(1)
+            if not re.search(r"\d{1,2}'\d{1,2}\-\d{1,2}'\d{1,2}\s*=", tmpContent, re.I):
                 print("请输入详细时间计划")
                 while 1:
-                    timeSection=input("时间段[eg.6:00-7:05],q退出详细时间安排输入:>")
-                    timeSection=timeSection.replace(":","'")
-                    if timeSection in ['q','Q']:
+                    timeSection = input("时间段[eg.6:00-7:05],q退出详细时间安排输入:>")
+                    timeSection = timeSection.replace(":", "'")
+                    if timeSection in ['q', 'Q']:
                         break
                     else:
-                        timeSectionPlan=input("请输入%s要完成的任务:>" % timeSection)
-                        update_config_file_key_value("plan.ini",todayDate,timeSection,timeSectionPlan)
+                        timeSectionPlan = input("请输入%s要完成的任务:>" % timeSection)
+                        update_config_file_key_value("plan.ini", todayDate, timeSection, timeSectionPlan)
 
             from multiprocessing import Process
-            p=Process(target=voiceTips,args=())
+            p = Process(target=voiceTips, args=())
             p.start()
 
-
-
-            if not config_file_has_key_value("plan.ini",todayDate,"小结-缺点"):
-                quedian=input("请输入今天小结的缺点,q退出\n>")
-                if quedian not in ['q','Q']:
-                    update_config_file_key_value("plan.ini",todayDate,"小结-缺点",quedian)
+            if not config_file_has_key_value("plan.ini", todayDate, "小结-缺点"):
+                quedian = input("请输入今天小结的缺点,q退出\n>")
+                if quedian not in ['q', 'Q']:
+                    update_config_file_key_value("plan.ini", todayDate, "小结-缺点", quedian)
                 else:
                     continue
 
-            if not config_file_has_key_value("plan.ini",todayDate,"小结-改进"):
-                quedian=input("请输入今天小结的改进\n>")
-                update_config_file_key_value("plan.ini",todayDate,"小结-改进",quedian)
-            if not config_file_has_key_value("plan.ini",todayDate,"小结-优点"):
-                quedian=input("请输入今天小结的优点\n>")
-                update_config_file_key_value("plan.ini",todayDate,"小结-优点",quedian)
+            if not config_file_has_key_value("plan.ini", todayDate, "小结-改进"):
+                quedian = input("请输入今天小结的改进\n>")
+                update_config_file_key_value("plan.ini", todayDate, "小结-改进", quedian)
+            if not config_file_has_key_value("plan.ini", todayDate, "小结-优点"):
+                quedian = input("请输入今天小结的优点\n>")
+                update_config_file_key_value("plan.ini", todayDate, "小结-优点", quedian)
     if choose == '7':
         output.good_print('''可以每天单独实施奖励或惩罚
     每周安排:
@@ -246,7 +263,7 @@ while 1:
             choose = input("\n输入j随机奖励,输入c随机惩罚,输入b返回到上一层[default b]\n>")
             if choose in ['j', 'J']:
                 output.good_print(jiangli[jiangliIndex])
-            elif choose in ['c','C']:
+            elif choose in ['c', 'C']:
                 output.good_print(chengfa[chengfaIndex])
             else:
                 break
