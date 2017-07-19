@@ -13,14 +13,9 @@
 ### blog: http://3xp10it.cc
 #############################################################
 import time
-from exp10it import figlet2file
-figlet2file("3xp10it",0,True)
-time.sleep(1)
-
 import os
 import random
 import re
-import pdb
 from exp10it import CLIOutput
 from exp10it import update_config_file_key_value
 from exp10it import get_key_value_from_config_file
