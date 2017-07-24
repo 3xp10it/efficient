@@ -20,6 +20,7 @@ from exp10it import CLIOutput
 from exp10it import update_config_file_key_value
 from exp10it import get_key_value_from_config_file
 from exp10it import config_file_has_key_value
+from exp10it import MyThread
 
 
 def voiceTips():
@@ -212,9 +213,12 @@ while 1:
                         timeSectionPlan = input("请输入%s要完成的任务:>" % timeSection)
                         update_config_file_key_value("plan.ini", todayDate, timeSection, timeSectionPlan)
 
-            from multiprocessing import Process
-            p = Process(target=voiceTips, args=())
-            p.start()
+            #from multiprocessing import Process
+            #p = Process(target=voiceTips, args=())
+            #p.start()
+            t=MyThread(voiceTips,())
+            t.start()
+
 
             if not config_file_has_key_value("plan.ini", todayDate, "小结-缺点"):
                 quedian = input("请输入今天小结的缺点,q退出\n>")
