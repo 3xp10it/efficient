@@ -2,3 +2,4 @@ plan.ini
 *.swp
 *.swo
 exp10it.py
+__pycache__
