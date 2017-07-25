@@ -26,6 +26,7 @@ from exp10it import MyThread
 def voiceTips(outputObj):
     import time
     import re
+    import sys
     saidNowStartList = []
     saidNowEndList = []
     output=outputObj
@@ -57,14 +58,22 @@ def voiceTips(outputObj):
                             endTime = '0' + each[1]
                         if startTime == now:
                             if now not in saidNowStartList:
+                                time.sleep(3)
+                                output.stop_order=0
                                 os.system("say 注意,现在开始进行%s" % each[2])
-                                output.continue_bottom_print("[正在进行:"+each[2]+"]")
+                                printString="[正在进行:"+each[2]+"]"
+                                t=MyThread(output.continue_bottom_print,(printString,))
+                                t.start()
                                 saidNowStartList.append(now)
 
                             # time.sleep(60)
                         if endTime == now:
                             if now not in saidNowEndList:
                                 os.system("say 注意,现在结束%s" % each[2])
+                                #output.bottom_print("\r"+" "*len(printString))
+                                output.bottom_print("[完成'%s']" % each[2])
+                                #sys.stdout.flush()
+                                output.stop_order=1
                                 saidNowEndList.append(now)
 
 
