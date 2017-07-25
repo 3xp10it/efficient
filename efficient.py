@@ -26,15 +26,14 @@ from exp10it import MyThread
 def voiceTips():
     import time
     import re
-    nowYear = time.strftime("%y")
-    nowMonth = time.strftime("%m")
-    nowDate = time.strftime("%d")
-    todayDate = nowYear + nowMonth + nowDate
-
     saidNowStartList = []
     saidNowEndList = []
     while 1:
         time.sleep(1)
+        nowYear = time.strftime("%y")
+        nowMonth = time.strftime("%m")
+        nowDate = time.strftime("%d")
+        todayDate = nowYear + nowMonth + nowDate
         if os.path.exists("plan.ini"):
             with open("plan.ini", "r+") as f:
                 fileContent = f.read()
