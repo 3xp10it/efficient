@@ -162,7 +162,7 @@ while 1:
                 update_config_file_key_value("plan.ini", todayDate, "main", main)
             if not config_file_has_key_value("plan.ini", todayDate, "未完成惩罚") and not config_file_has_key_value("plan.ini", todayDate, "完成奖励"):
                 if int(nowDate) % 2 == 0:
-                    choose = ("今日为惩罚日,你想自己选择惩罚方式还是由我随机帮你选一个? y|Y for your choose,n|N for random,default [n]")
+                    choose = input("今日为惩罚日,你想自己选择惩罚方式还是由我随机帮你选一个? y|Y for your choose,n|N for random,default [n]\n>>>")
                     if choose in ['y', 'Y']:
                         while 1:
                             choose = input('''
@@ -177,10 +177,12 @@ while 1:
                             if choose not in ["1", "2", "3", "4", "5", "6"]:
                                 continue
                             else:
+                                update_config_file_key_value("plan.ini", todayDate, "未完成惩罚",
+                                        chengfa[int(choose)-1])
                                 break
-                        update_config_file_key_value("plan.ini", todayDate, "未完成惩罚", chengfa[chengfaIndex])
+                    update_config_file_key_value("plan.ini", todayDate, "未完成惩罚", chengfa[chengfaIndex])
                 else:
-                    choose = ("今日为奖励日,你想自己选择奖励方式还是由我随机帮你选一个? y|Y for your choose,n|N for random,default [n]")
+                    choose = input("今日为奖励日,你想自己选择奖励方式还是由我随机帮你选一个? y|Y for your choose,n|N for random,default [n]\n>>>")
                     if choose in ['y', 'Y']:
                         while 1:
                             choose = input('''
@@ -198,8 +200,10 @@ while 1:
                             if choose not in ["1", "2", "3", "4", "5", "6", "7", "8"]:
                                 continue
                             else:
+                                update_config_file_key_value("plan.ini", todayDate, "完成奖励",
+                                        jiangli[int(choose)-1])
                                 break
-                        update_config_file_key_value("plan.ini", todayDate, "完成奖励", jiangli[jiangliIndex])
+                    update_config_file_key_value("plan.ini", todayDate, "完成奖励", jiangli[jiangliIndex])
 
             with open("plan.ini", "r+") as f:
                 fileContent = f.read()
