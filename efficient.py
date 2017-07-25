@@ -186,10 +186,13 @@ while 1:
                             if choose not in ["1", "2", "3", "4", "5", "6"]:
                                 continue
                             else:
+                                output.good_print("你选择了:%s" % chengfa[int(choose)-1])
                                 update_config_file_key_value("plan.ini", todayDate, "未完成惩罚",
                                         chengfa[int(choose)-1])
                                 break
-                    update_config_file_key_value("plan.ini", todayDate, "未完成惩罚", chengfa[chengfaIndex])
+                    else:
+                        output.good_print("随机选取为:%s" % chengfa[chengfaIndex])
+                        update_config_file_key_value("plan.ini", todayDate, "未完成惩罚", chengfa[chengfaIndex])
                 else:
                     choose = input("今日为奖励日,你想自己选择奖励方式还是由我随机帮你选一个? y|Y for your choose,n|N for random,default [n]\n>>>")
                     if choose in ['y', 'Y']:
@@ -209,16 +212,19 @@ while 1:
                             if choose not in ["1", "2", "3", "4", "5", "6", "7", "8"]:
                                 continue
                             else:
+                                output.good_print("你选择了:%s" % jiangli[int(choose)-1])
                                 update_config_file_key_value("plan.ini", todayDate, "完成奖励",
                                         jiangli[int(choose)-1])
                                 break
-                    update_config_file_key_value("plan.ini", todayDate, "完成奖励", jiangli[jiangliIndex])
+                    else:
+                        output.good_print("随机选取为:%s" % jiangli[jiangliIndex])
+                        update_config_file_key_value("plan.ini", todayDate, "完成奖励", jiangli[jiangliIndex])
 
             with open("plan.ini", "r+") as f:
                 fileContent = f.read()
             tmpContent = re.search(r"\[%s\]\n+([\s\S]+)(\[.+\])?" % todayDate, fileContent, re.I).group(1)
             if not re.search(r"\d{1,2}'\d{1,2}\-\d{1,2}'\d{1,2}\s*=", tmpContent, re.I):
-                print("请输入详细时间计划")
+                output.good_print("请输入详细时间计划")
                 while 1:
                     timeSection = input("时间段[eg.6:00-7:05],q退出详细时间安排输入:>>>")
                     timeSection = timeSection.replace(":", "'")
