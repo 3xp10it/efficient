@@ -44,6 +44,7 @@ def voiceTips(outputObj):
                 tmpContent = matchToday.group(1)
                 matchTime = re.findall(r"(\d{1,2}'\d{1,2})\-(\d{1,2}'\d{1,2})\s*=\s*(.*)", tmpContent, re.I)
                 if matchTime:
+                    #print(matchTime)
                     import datetime
                     # pdb.set_trace()
 
@@ -223,15 +224,16 @@ while 1:
             with open("plan.ini", "r+") as f:
                 fileContent = f.read()
             tmpContent = re.search(r"\[%s\]\n+([\s\S]+)(\[.+\])?" % todayDate, fileContent, re.I).group(1)
-            if not re.search(r"\d{1,2}'\d{1,2}\-\d{1,2}'\d{1,2}\s*=", tmpContent, re.I):
+            #if not re.search(r"\d{1,2}'\d{1,2}\-\d{1,2}'\d{1,2}\s*=", tmpContent, re.I):
+            if 1:
                 output.good_print("请输入详细时间计划")
                 while 1:
-                    timeSection = input("时间段[eg.6:00-7:05],q退出详细时间安排输入:>>>")
+                    timeSection = input("时间段[eg.6:00-7:05],q退出详细时间安排输入\n>>>")
                     timeSection = timeSection.replace(":", "'")
                     if timeSection in ['q', 'Q']:
                         break
                     else:
-                        timeSectionPlan = input("请输入%s要完成的任务:>>>" % timeSection)
+                        timeSectionPlan = input("请输入%s要完成的任务\n>>>" % timeSection)
                         update_config_file_key_value("plan.ini", todayDate, timeSection, timeSectionPlan)
 
             #from multiprocessing import Process
