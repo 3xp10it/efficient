@@ -22,6 +22,13 @@ from exp10it import get_key_value_from_config_file
 from exp10it import config_file_has_key_value
 from exp10it import MyThread
 
+def countMin(timeV,splitC):
+    a=timeV.split(splitC)
+    if a[0][0]=="0" and 2==len(a[0]):
+        timeVValue=int(a[0][1])*60+int(a[1])
+    else:
+        timeVValue=int(a[0])*60+int(a[1])
+    return timeVValue
 
 def voiceTips(outputObj):
     import time
@@ -57,6 +64,7 @@ def voiceTips(outputObj):
                             startTime = '0' + each[0]
                         if len(each[1].split("'")[0]) == 1:
                             endTime = '0' + each[1]
+                        hasPrintStatus=0
                         if startTime == now:
                             if now not in saidNowStartList:
                                 time.sleep(3)
@@ -66,8 +74,14 @@ def voiceTips(outputObj):
                                 t=MyThread(output.continue_bottom_print,(printString,))
                                 t.start()
                                 saidNowStartList.append(now)
+                                hasPrintStatus=1
+                        if countMin(endTime,"'")>countMin(now,"'")>countMin(startTime,"'"):
+                            if hasPrintStatus==0:
+                                printString="[正在进行:"+each[2]+"]"
+                                t=MyThread(output.continue_bottom_print,(printString,))
+                                t.start()
+                                hasPrintStatus=1
 
-                            # time.sleep(60)
                         if endTime == now:
                             if now not in saidNowEndList:
                                 os.system("say 注意,现在结束%s" % each[2])
