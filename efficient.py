@@ -36,6 +36,7 @@ def voiceTips(outputObj):
     import sys
     saidNowStartList = []
     saidNowEndList = []
+    hasPrintStatusTimeZoneList=[]
     output=outputObj
     while 1:
         time.sleep(1)
@@ -66,30 +67,31 @@ def voiceTips(outputObj):
                             endTime = '0' + each[1]
                         hasPrintStatus=0
                         if startTime == now:
-                            if now not in saidNowStartList:
+                            if todayDate+"'"+now not in saidNowStartList:
                                 time.sleep(3)
                                 output.stop_order=0
                                 os.system("say 注意,现在开始进行%s" % each[2])
+                                saidNowStartList.append(todayDate+"'"+now)
+
                                 printString="[正在进行:"+each[2]+"]"
                                 t=MyThread(output.continue_bottom_print,(printString,))
                                 t.start()
-                                saidNowStartList.append(now)
-                                hasPrintStatus=1
+                                hasPrintStatusTimeZoneList.append(todayDate+":"+startTime+"-"+endTime)
                         if countMin(endTime,"'")>countMin(now,"'")>countMin(startTime,"'"):
-                            if hasPrintStatus==0:
+                            if todayDate+":"+startTime+"-"+endTime not in hasPrintStatusTimeZoneList:
                                 printString="[正在进行:"+each[2]+"]"
                                 t=MyThread(output.continue_bottom_print,(printString,))
                                 t.start()
-                                hasPrintStatus=1
+                                hasPrintStatusTimeZoneList.append(todayDate+":"+startTime+"-"+endTime)
 
                         if endTime == now:
-                            if now not in saidNowEndList:
+                            if todayDate+"'"+now not in saidNowEndList:
                                 os.system("say 注意,现在结束%s" % each[2])
                                 #output.bottom_print("\r"+" "*len(printString))
                                 output.bottom_print("[完成'%s']" % each[2])
                                 #sys.stdout.flush()
                                 output.stop_order=1
-                                saidNowEndList.append(now)
+                                saidNowEndList.append(todayDate+"'"+now)
 
 
 output = CLIOutput()
