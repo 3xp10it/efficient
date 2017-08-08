@@ -176,6 +176,10 @@ while 1:
         if choose == '3':
             pass
         if choose == '4':
+            nowYear = time.strftime("%y")
+            nowMonth = time.strftime("%m")
+            nowDate = time.strftime("%d")
+            todayDate = nowYear + nowMonth + nowDate
             import os
             with open("plan.ini", "r+") as f:
                 fileContent = f.read()
