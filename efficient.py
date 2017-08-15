@@ -31,15 +31,14 @@ def countMin(timeV,splitC):
     return timeVValue
 
 def wrong_timeSection_format(timeSectionFormat):
-    if "-" not in  timeSectionFormat:
-        return False
+    if not re.match(r"\d+:\d+-\d+:\d+",timeSectionFormat,re.I):
+        return True
     else:
         timesectionList=timeSectionFormat.split("-")
-        try:
-            if countMin(timesectionList[0],"'")<countMin(timesectionList[1],"'"):
-                return True
-        except:
+        if countMin(timesectionList[0],":")<=countMin(timesectionList[1],":"):
             return False
+        else:
+            return True
 
 
 def voiceTips(outputObj):
@@ -260,8 +259,8 @@ while 1:
                 output.good_print("请输入详细时间计划")
                 while 1:
                     while 1:
-                        timeSection = input("时间段[eg.6:00-7:05],q退出详细时间安排输入\n>>>")
-                        if wrong_timeSection_format(timeSection):
+                        timeSection = input("请输入时间段[eg.6:00-7:05],q退出详细时间安排输入\n>>>")
+                        if timeSection not in ['q','Q'] and wrong_timeSection_format(timeSection):
                             continue
                         else:
                             break
