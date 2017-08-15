@@ -30,10 +30,21 @@ def countMin(timeV,splitC):
         timeVValue=int(a[0])*60+int(a[1])
     return timeVValue
 
+def wrong_timeSection_format(timeSectionFormat):
+    if "-" not in  timeSectionFormat:
+        return False
+    else:
+        timesectionList=timeSectionFormat.split("-")
+        try:
+            if countMin(timesectionList[0],"'")<countMin(timesectionList[1],"'"):
+                return True
+        except:
+            return False
+
+
 def voiceTips(outputObj):
     import time
     import re
-    import sys
     saidNowStartList = []
     saidNowEndList = []
     hasPrintStatusTimeZoneList=[]
@@ -248,7 +259,13 @@ while 1:
             if 1:
                 output.good_print("请输入详细时间计划")
                 while 1:
-                    timeSection = input("时间段[eg.6:00-7:05],q退出详细时间安排输入\n>>>")
+                    while 1:
+                        timeSection = input("时间段[eg.6:00-7:05],q退出详细时间安排输入\n>>>")
+                        if wrong_timeSection_format(timeSection):
+                            continue
+                        else:
+                            break
+
                     timeSection = timeSection.replace(":", "'")
                     if timeSection in ['q', 'Q']:
                         break
