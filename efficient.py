@@ -106,7 +106,7 @@ def voiceTips(outputObj):
 
 output = CLIOutput()
 jiangli = ["今日dj", "本周2次dj", "可以买一个礼物给家人", "可以买一本好书给自己", "可以获得一次抵消惩罚的机会",
-           "明天完成main后可以自由娱乐或其他安排", "周末可以自由安排", "增加可购买想要的东西的基金200元[到2000元可购买机械键盘]"]
+           "明天完成main后可以自由娱乐或其他安排", "周末可以自由安排", "增加可购买想要的东西的基金200元"]
 chengfa = ["周末Ndj", "周末全部时间用来学习,禁止娱乐", "周末全部时间用来练习五笔", "周末全部时间用来背单词", "周末背2000个单词后才可以休息, 否则不能进行任意娱乐", "减少基金200元"]
 jiangliIndex = random.randint(0, len(jiangli) - 1)
 chengfaIndex = random.randint(0, len(chengfa) - 1)
