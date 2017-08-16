@@ -31,7 +31,7 @@ def countMin(timeV,splitC):
     return timeVValue
 
 def wrong_timeSection_format(timeSectionFormat):
-    if not re.match(r"\d+:\d+-\d+:\d+",timeSectionFormat,re.I):
+    if not re.match(r"\d{1,2}:\d{1,2}-\d{1,2}:\d{1,2}",timeSectionFormat,re.I):
         return True
     else:
         timesectionList=timeSectionFormat.split("-")
