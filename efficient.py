@@ -80,7 +80,7 @@ def voiceTips(outputObj):
                             if todayDate+"'"+now not in saidNowStartList:
                                 time.sleep(3)
                                 output.stop_order=0
-                                os.system("say 注意,现在开始进行%s" % each[2])
+                                os.system("say '注意,现在开始进行%s'" % each[2])
                                 saidNowStartList.append(todayDate+"'"+now)
 
                                 printString="["+startTime+"-"+endTime+" 正在进行:"+each[2]+"]"
@@ -97,7 +97,7 @@ def voiceTips(outputObj):
 
                         if endTime == now:
                             if todayDate+"'"+now not in saidNowEndList:
-                                os.system("say 注意,现在结束%s" % each[2])
+                                os.system("say '注意,现在结束%s'" % each[2])
                                 #output.bottom_print("\r"+" "*len(printString))
                                 output.bottom_print("[完成'%s']" % each[2])
                                 #sys.stdout.flush()
