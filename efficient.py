@@ -83,13 +83,14 @@ def voiceTips(outputObj):
                                 os.system("say 注意,现在开始进行%s" % each[2])
                                 saidNowStartList.append(todayDate+"'"+now)
 
-                                printString="[正在进行:"+each[2]+"]"
+                                printString="["+startTime+"-"+endTime+" 正在进行:"+each[2]+"]"
                                 t=MyThread(output.continue_bottom_print,(printString,))
                                 t.start()
                                 hasPrintStatusTimeZoneList.append(todayDate+":"+startTime+"-"+endTime)
                         if countMin(endTime,"'")>countMin(now,"'")>countMin(startTime,"'"):
                             if todayDate+":"+startTime+"-"+endTime not in hasPrintStatusTimeZoneList:
-                                printString="[正在进行:"+each[2]+"]"
+                                #printString="[正在进行:"+each[2]+"]"
+                                printString="["+startTime+"-"+endTime+" 正在进行:"+each[2]+"]"
                                 t=MyThread(output.continue_bottom_print,(printString,))
                                 t.start()
                                 hasPrintStatusTimeZoneList.append(todayDate+":"+startTime+"-"+endTime)
@@ -153,9 +154,8 @@ while 1:
 你就去浪费时间折腾吧,
 放下是一种智慧,二八法则是一种高智慧''')
     if choose == '5':
-        output.good_print('''1.上班时间学习web,下班时间学习二进制
-2.20%时间用于自己折腾,80%时间用于学习别人的成果
-3.20%时间用于制定自己的计划,80%的时间用于完成计划''')
+        output.good_print('''1.20%时间用于自己折腾,80%时间用于学习别人的成果
+2.20%时间用于制定自己的计划,80%的时间用于完成计划''')
     if choose == '6':
         output.good_print('''
 订目标和计划的领悟:
